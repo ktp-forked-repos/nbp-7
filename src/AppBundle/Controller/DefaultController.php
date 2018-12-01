@@ -12,7 +12,7 @@ class DefaultController extends Controller
     {
     	$response = $nbpService->getCurrency();
 
-        return $this->render('pages/index.html.twig');
+        return $this->render('pages/index.html.twig', ["currency"=>$response]);
     }
 
 }

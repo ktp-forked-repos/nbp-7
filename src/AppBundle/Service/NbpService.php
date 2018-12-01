@@ -10,7 +10,6 @@ class NbpService {
 		$gruzzle = new GruzzleClientAdapter(new GruzzleClient());
 		$currency = $gruzzle->getCurrency();
 		
-		var_dump($currency);
-		die;
+		return $currency;
 	}
 }
