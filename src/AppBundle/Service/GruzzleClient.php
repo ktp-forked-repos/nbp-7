@@ -2,6 +2,10 @@
 namespace AppBundle\Service;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\RequestInterface;
+use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GruzzleClient {
 	private $client;
@@ -11,8 +15,13 @@ class GruzzleClient {
 	}
 
 	public function getCurrency() {
-		$request = $this->client->request('GET', '');
-
-		return json_decode($request->getBody()->getContents());
+		try {
+			$request = $this->client->request('GET', '');
+		}
+		catch(RequestException $e) {
+  			return $e->getMessage();
+		}
+		
+		return $request;
 	}
 }
