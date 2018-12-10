@@ -10,8 +10,10 @@ use GuzzleHttp\Psr7\Response as GruzzleResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction(NbpService $nbpService)
+    public function indexAction()
     {
+        $nbpService = $this->get('app.nbp_service');
+        
     	$error = false;
     	$message = '';
 

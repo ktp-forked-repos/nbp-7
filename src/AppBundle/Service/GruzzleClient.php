@@ -9,14 +9,16 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GruzzleClient {
 	private $client;
+	private $base_url;
 
-	function __construct() {
-		$this->client = new \GuzzleHttp\Client(['base_uri' => 'http://api.nbp.pl/api/exchangerates/tables/A/']);
+	public function __construct($url) {
+		$this->client = new \GuzzleHttp\Client(['base_uri' => $url]);
+		$this->base_url = $url;
 	}
 
 	public function getCurrency() {
 		try {
-			$request = $this->client->request('GET', '');
+			$request = $this->client->request('GET', $this->base_url);
 		}
 		catch(RequestException $e) {
   			return $e->getMessage();

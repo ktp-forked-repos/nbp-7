@@ -1,10 +1,10 @@
 <?php
-namespace AppBundle\Adapter;
+namespace AppBundle\Decorator;
 
 use AppBundle\Interfaces\HttpClientInterface;
 use AppBundle\Service\GruzzleClient;
 
-class GruzzleClientAdapter implements HttpClientInterface{
+class GruzzleClientDecorator implements HttpClientInterface{
 	private $gruzzleClient;
 
 	function __construct (GruzzleClient $gruzzleClient) {

@@ -1,13 +1,20 @@
 <?php
 namespace AppBundle\Service;
 
-use AppBundle\Adapter\GruzzleClientAdapter;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use AppBundle\Decorator\GruzzleClientDecorator;
 use AppBundle\Service\GruzzleClient;
 
-class NbpService {
+class NbpService{
+	private $container;
+
+    public function __construct(Container $container) {
+        $this->container = $container;
+    }
 	
 	public function getCurrency() {
-		$gruzzle = new GruzzleClientAdapter(new GruzzleClient());
+		$gruzzleClient = $this->container->get('app.gruzzle_client');
+		$gruzzle = new GruzzleClientDecorator($gruzzleClient);
 		$currency = $gruzzle->getCurrency();
 		
 		return $currency;
