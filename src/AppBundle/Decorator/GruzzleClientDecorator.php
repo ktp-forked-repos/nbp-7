@@ -15,4 +15,8 @@ class GruzzleClientDecorator implements HttpClientInterface{
 		return $this->gruzzleClient->getCurrency();
 	}
 
+	public function getHistoricalCurrency($code, $amount) {
+		return $this->gruzzleClient->getHistoricalCurrency($code, $amount);
+	}
+
 }

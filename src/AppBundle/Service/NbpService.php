@@ -18,6 +18,12 @@ class NbpService{
 		return $currency;
 	}
 
+	public function getHistoricalCurrencyByCode($code, $amount) {
+		$currency = $this->gruzzleDecorator->getHistoricalCurrency($code, $amount);
+		
+		return $currency;
+	}
+
 	public function decodeResponse($response) {
 		return json_decode($response ->getBody()->getContents());
 	}

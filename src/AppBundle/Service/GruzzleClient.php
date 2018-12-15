@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use AppBundle\Helper\UrlTransformer;
 use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -9,25 +10,37 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GruzzleClient {
 	private $client;
-	private $base_url;
+	private $baseUrl;
+	private $historyUrl;
+	private $urlTransformer;
 
-	public function __construct($url) {
-		$this->client = new \GuzzleHttp\Client(['base_uri' => $url]);
-		$this->base_url = $url;
+	public function __construct($baseUrl, $historyUrl, UrlTransformer $urlTransformer) {
+		$this->client = new \GuzzleHttp\Client(['base_uri' => $baseUrl]);
+		$this->baseUrl = $baseUrl;
+		$this->historyUrl = $historyUrl;
+		$this->urlTransformer = $urlTransformer;
 	}
 
-	public function getCurrency($url = null) {
+	public function getCurrency() {
 		try {
-			if (!$url) {
-				$request = $this->client->request('GET', $this->base_url);	
-			} else {
-				$request = $this->client->request('GET', $url);
-			}
+			$request = $this->client->request('GET', $this->baseUrl);	
 		}
 		catch(RequestException $e) {
   			return $e->getMessage();
 		}
 		
 		return $request;
+	}
+
+	public function getHistoricalCurrency($code, $amount) {
+		try {
+			$transformedUrl = $this->urlTransformer->transformHistoryUrl($this->historyUrl, $code, $amount);
+			$request = $this->client->request('GET', $transformedUrl);	
+		}
+		catch(RequestException $e) {
+  			return $e->getMessage();
+		}
+		
+		return $request;	
 	}
 }

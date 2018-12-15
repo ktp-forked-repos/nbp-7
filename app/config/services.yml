@@ -29,10 +29,13 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    app.url_transformer:
+        class: AppBundle\Helper\UrlTransformer
+
     app.gruzzle_client:
         public: true
         class: AppBundle\Service\GruzzleClient
-        arguments: {$url: %nbp_api_base_url%}
+        arguments: {$baseUrl: %nbp_api_base_url%, $historyUrl: %npi_api_history_url%, $urlTransformer: '@app.url_transformer'}
 
     app.gruzzle_decorator:
         public: true

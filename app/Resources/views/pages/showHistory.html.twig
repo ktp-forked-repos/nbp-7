@@ -24,7 +24,34 @@
     <div class="container">
 
       <div class="starter-template">
-        Historia
+        {% if error == false %}
+
+        <h1>Historia <a class="btn btn-danger" href="{{ path('homepage') }}"> <i class="fa fa-arrow-left"> </i> Powrót </a></h1>
+        <p class="lead">
+          <table class="table">
+            <thead>
+              <tr>
+                <th> Nazwa </th>
+                <th> Data </th>
+                <th> Wartość </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for curr in currency.rates %}
+                <tr> 
+                  <td>{{curr.no}}</td>
+                  <td>{{curr.effectiveDate}}</td>
+                  <td>{{curr.mid}}</td>
+                </tr>
+              {% endfor %} 
+            </tbody>
+          <table>
+        </p>
+
+        {% else %}
+          <h1>{{message}}</h1>
+
+      {% endif %}
 
       </div>
 

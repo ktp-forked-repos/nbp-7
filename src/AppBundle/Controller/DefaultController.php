@@ -30,7 +30,22 @@ class DefaultController extends Controller
     }
 
     public function showHistoryAction($code) {
-       return $this->render('pages/showHistory.html.twig');     
+       $nbpService = $this->get('app.nbp_service');
+       $amount = $this->getParameter('nbp_api_history_amount');
+
+       $error = false;
+       $message = '';
+
+       $response = $nbpService->getHistoricalCurrencyByCode($code, $amount);
+
+       if (!$response instanceof GruzzleResponse) {
+            $error = true;
+            $message = $response;
+        } else {
+            $response = $nbpService->decodeResponse($response);
+        }
+
+       return $this->render('pages/showHistory.html.twig', ["currency"=>$response, "error"=>$error, "message"=>$message]);     
     }
 
 }
