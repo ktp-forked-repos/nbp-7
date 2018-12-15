@@ -29,15 +29,20 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    app.nbp_service:
-        public: true
-        class: AppBundle\Service\NbpService
-        arguments: ['@service_container']
-
     app.gruzzle_client:
         public: true
         class: AppBundle\Service\GruzzleClient
         arguments: {$url: %nbp_api_base_url%}
+
+    app.gruzzle_decorator:
+        public: true
+        class: AppBundle\Decorator\GruzzleClientDecorator
+        arguments: ['@app.gruzzle_client']
+
+    app.nbp_service:
+        public: true
+        class: AppBundle\Service\NbpService
+        arguments: ['@app.gruzzle_decorator']
               
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

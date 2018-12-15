@@ -2,3 +2,7 @@
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
+
+history:
+    path: /history/{code}
+    defaults: { _controller: AppBundle:Default:showHistory }

@@ -6,17 +6,19 @@ use AppBundle\Decorator\GruzzleClientDecorator;
 use AppBundle\Service\GruzzleClient;
 
 class NbpService{
-	private $container;
+	private $gruzzleDecorator;
 
-    public function __construct(Container $container) {
-        $this->container = $container;
+    public function __construct(GruzzleClientDecorator $gruzzleDecorator) {
+        $this->gruzzleDecorator = $gruzzleDecorator;
     }
 	
 	public function getCurrency() {
-		$gruzzleClient = $this->container->get('app.gruzzle_client');
-		$gruzzle = new GruzzleClientDecorator($gruzzleClient);
-		$currency = $gruzzle->getCurrency();
+		$currency = $this->gruzzleDecorator->getCurrency();
 		
 		return $currency;
+	}
+
+	public function decodeResponse($response) {
+		return json_decode($response ->getBody()->getContents());
 	}
 }

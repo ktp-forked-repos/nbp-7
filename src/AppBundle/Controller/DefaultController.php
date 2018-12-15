@@ -23,10 +23,14 @@ class DefaultController extends Controller
     		$error = true;
     		$message = $response;
     	} else {
-    		$response = json_decode($response ->getBody()->getContents());
+    		$response = $nbpService->decodeResponse($response);
     	}
 
         return $this->render('pages/index.html.twig', ["currency"=>$response, "error"=>$error, "message"=>$message]);
+    }
+
+    public function showHistoryAction($code) {
+       return $this->render('pages/showHistory.html.twig');     
     }
 
 }

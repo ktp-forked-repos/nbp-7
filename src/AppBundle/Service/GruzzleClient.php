@@ -16,9 +16,13 @@ class GruzzleClient {
 		$this->base_url = $url;
 	}
 
-	public function getCurrency() {
+	public function getCurrency($url = null) {
 		try {
-			$request = $this->client->request('GET', $this->base_url);
+			if (!$url) {
+				$request = $this->client->request('GET', $this->base_url);	
+			} else {
+				$request = $this->client->request('GET', $url);
+			}
 		}
 		catch(RequestException $e) {
   			return $e->getMessage();

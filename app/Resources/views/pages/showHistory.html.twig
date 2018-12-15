@@ -24,34 +24,7 @@
     <div class="container">
 
       <div class="starter-template">
-        {% if error == false %}
-
-        <h1>Aktualne kursy NBP z dnia {{ currency[0].effectiveDate }}</h1>
-        <p class="lead">
-          <table class="table">
-            <thead>
-              <tr>
-                <th> Nazwa </th>
-                <th> Wartość </th>
-                <th> Opcje </th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for curr in currency[0].rates %}
-                <tr> 
-                  <td>{{curr.code}}</td>
-                  <td>{{curr.mid}}</td>
-                  <td><a class="btn btn-default" href="{{ path('history', {code: curr.code }) }}">Historia</a></td>
-                </tr>
-              {% endfor %} 
-            </tbody>
-          <table>
-        </p>
-
-        {% else %}
-          <h1>{{message}}</h1>
-
-      {% endif %}
+        Historia
 
       </div>
 
