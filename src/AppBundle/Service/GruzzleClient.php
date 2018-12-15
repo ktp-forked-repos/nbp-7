@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use AppBundle\Interfaces\HttpClientInterface;
 use AppBundle\Helper\UrlTransformer;
 use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
@@ -8,7 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class GruzzleClient {
+class GruzzleClient implements HttpClientInterface{
 	private $client;
 	private $baseUrl;
 	private $historyUrl;
