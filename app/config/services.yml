@@ -35,12 +35,17 @@ services:
     app.gruzzle_client:
         public: true
         class: AppBundle\Service\GruzzleClient
-        arguments: {$baseUrl: %nbp_api_base_url%, $historyUrl: %npi_api_history_url%, $urlTransformer: '@app.url_transformer'}
+        arguments: {$urlHelper: '@app.url_helper' ,$urlTransformer: '@app.url_transformer'}
 
     app.nbp_service:
         public: true
         class: AppBundle\Service\NbpService
         arguments: ['@app.gruzzle_client']
+
+    app.url_helper:
+        public: true
+        class: AppBundle\Helper\UrlHelper
+        arguments: {$baseUrl: %nbp_api_base_url%, $historyUrl: %npi_api_history_url%}
               
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

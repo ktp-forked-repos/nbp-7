@@ -3,6 +3,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Interfaces\HttpClientInterface;
 use AppBundle\Helper\UrlTransformer;
+use AppBundle\Helper\UrlHelper;
 use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -11,20 +12,19 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GruzzleClient implements HttpClientInterface{
 	private $client;
-	private $baseUrl;
-	private $historyUrl;
+	private $urlHelperService;
 	private $urlTransformer;
 
-	public function __construct($baseUrl, $historyUrl, UrlTransformer $urlTransformer) {
-		$this->client = new \GuzzleHttp\Client(['base_uri' => $baseUrl]);
-		$this->baseUrl = $baseUrl;
-		$this->historyUrl = $historyUrl;
+	public function __construct(UrlHelper $urlHelper, UrlTransformer $urlTransformer) {
+		$this->urlHelperService = $urlHelper;
 		$this->urlTransformer = $urlTransformer;
+
+		$this->client = new \GuzzleHttp\Client(['base_uri' => $this->urlHelperService->getBaseUrl()]);
 	}
 
 	public function getCurrency() {
 		try {
-			$request = $this->client->request('GET', $this->baseUrl);	
+			$request = $this->client->request('GET', $this->urlHelperService->getBaseUrl());	
 		}
 		catch(RequestException $e) {
   			return $e->getMessage();
@@ -35,7 +35,7 @@ class GruzzleClient implements HttpClientInterface{
 
 	public function getHistoricalCurrency($code, $amount) {
 		try {
-			$transformedUrl = $this->urlTransformer->transformHistoryUrl($this->historyUrl, $code, $amount);
+			$transformedUrl = $this->urlTransformer->transformHistoryUrl($this->urlHelperService->getHistoryUrl(), $code, $amount);
 			$request = $this->client->request('GET', $transformedUrl);	
 		}
 		catch(RequestException $e) {
