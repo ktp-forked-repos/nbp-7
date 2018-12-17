@@ -37,10 +37,15 @@ services:
         class: AppBundle\Service\GruzzleClient
         arguments: {$urlHelper: '@app.url_helper' ,$urlTransformer: '@app.url_transformer'}
 
+    app.api_connector:
+        public: true
+        class: AppBundle\Service\ApiConnector
+        arguments: ['@app.gruzzle_client']
+
     app.nbp_service:
         public: true
         class: AppBundle\Service\NbpService
-        arguments: ['@app.gruzzle_client']
+        arguments: ['@app.api_connector']
 
     app.url_helper:
         public: true

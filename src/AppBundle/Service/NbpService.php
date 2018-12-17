@@ -6,20 +6,20 @@ use AppBundle\Decorator\GruzzleClientDecorator;
 use AppBundle\Service\GruzzleClient;
 
 class NbpService{
-	private $gruzzleClient;
+	private $apiConnector;
 
-    public function __construct(GruzzleClient $gruzzleClient) {
-        $this->gruzzleClient = $gruzzleClient;
+    public function __construct(ApiConnector $apiConnector) {
+        $this->apiConnector = $apiConnector;
     }
 	
 	public function getCurrency() {
-		$currency = $this->gruzzleClient->getCurrency();
+		$currency = $this->apiConnector->getCurrency();
 		
 		return $currency;
 	}
 
 	public function getHistoricalCurrencyByCode($code, $amount) {
-		$currency = $this->gruzzleClient->getHistoricalCurrency($code, $amount);
+		$currency = $this->apiConnector->getHistoricalCurrencyByCode($code, $amount);
 		
 		return $currency;
 	}
