@@ -15,11 +15,11 @@ class GruzzleClient implements HttpClientInterface{
 	private $urlHelperService;
 	private $urlTransformer;
 
-	public function __construct(UrlHelper $urlHelper, UrlTransformer $urlTransformer) {
+	public function __construct(Client $client, UrlHelper $urlHelper, UrlTransformer $urlTransformer) {
 		$this->urlHelperService = $urlHelper;
 		$this->urlTransformer = $urlTransformer;
 
-		$this->client = new \GuzzleHttp\Client(['base_uri' => $this->urlHelperService->getBaseUrl()]);
+		$this->client = $client;
 	}
 
 	public function getCurrency() {

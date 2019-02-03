@@ -29,13 +29,20 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    GuzzleHttp\Client: '@guzzle.http.client'
+
+    guzzle.http.client:
+        public: true
+        class: GuzzleHttp\Client
+        arguments: [%guzzle.init.config%]     
+
     app.url_transformer:
         class: AppBundle\Helper\UrlTransformer
 
     app.gruzzle_client:
         public: true
         class: AppBundle\Service\GruzzleClient
-        arguments: {$urlHelper: '@app.url_helper' ,$urlTransformer: '@app.url_transformer'}
+        arguments: {$client: '@guzzle.http.client', $urlHelper: '@app.url_helper' ,$urlTransformer: '@app.url_transformer'}
 
     app.api_connector:
         public: true
