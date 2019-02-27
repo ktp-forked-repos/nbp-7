@@ -2,6 +2,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Features](#features)
+* [Screenshots](#screenshots)
 
 ## General info
 Simple Symfony program obtaining current exchange rates from nbp api
@@ -14,3 +15,9 @@ Project is created with:
 ## Features
 * Obtaining exchange rates for current day
 * Displaying historical currency rates
+
+## Screenshots
+**Main page**
+![Main page](web/img/img1.png)
+**History**
+![History](web/img/img2.png)
