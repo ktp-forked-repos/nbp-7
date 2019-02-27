@@ -11,11 +11,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Kursy NBP</a>
+          <a class="navbar-brand" href="#">NBP exchange rates</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Strona główna</a></li>
+            <li class="active"><a href="#">Homepage</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -26,14 +26,14 @@
       <div class="starter-template">
         {% if error == false %}
 
-        <h1>Aktualne kursy NBP z dnia {{ currency[0].effectiveDate }}</h1>
+        <h1>NBP exchange rates from {{ currency[0].effectiveDate }}</h1>
         <p class="lead">
           <table class="table">
             <thead>
               <tr>
-                <th> Nazwa </th>
-                <th> Wartość </th>
-                <th> Opcje </th>
+                <th> Currency </th>
+                <th> Value </th>
+                <th> Options </th>
               </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@
                 <tr> 
                   <td>{{curr.code}}</td>
                   <td>{{curr.mid}}</td>
-                  <td><a class="btn btn-default" href="{{ path('history', {code: curr.code }) }}">Historia</a></td>
+                  <td><a class="btn btn-default" href="{{ path('history', {code: curr.code }) }}">History</a></td>
                 </tr>
               {% endfor %} 
             </tbody>
